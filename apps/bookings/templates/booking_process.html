@@ -1,0 +1,16 @@
+{% extends 'dashboard_base.html' %}
+
+{% block page_name %}
+  Process Booking
+{% endblock %}
+
+{% block dashboard_content %}
+    <main class="max-w-xl m-auto space-y-4 text-center">
+        <p class="text-balance mb-4">Process booking lapangan apabila status pembayaran telah lunas</p>
+        <form method="post">
+            {% csrf_token %}
+            <input name="action" value="process" hidden />
+            <button class="px-4 py-2 bg-blue-500 font-semibold text-white rounded-md ">Process</button>
+        </form>
+    </main>
+{% endblock %}

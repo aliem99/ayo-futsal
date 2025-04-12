@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+<main>
+
+  <h1 class="mb-6 text-3xl text-center mt-6">{{title}}</h1>
+
+
+  <div class="space-y-4">
+    <form action="" method="post" enctype="multipart/form-data" class="flex flex-col items-center ">
+      {% csrf_token %}
+
+      <label for="date">Hari/Tanggal</label>
+      <input type="date" name="date" class="w-1/2 py-4 px-4 rounded-xl border" value="{{schedule.date|date:'Y-m-d'}}" required><br>
+
+
+      {% if error %}
+         <div class="bg-red-400 px-2 py-2 rounded-md">{{ error }}</div>
+      {% endif %}
+
+
+      <label for="hour">Jam:</label>
+      <select name="hour" class="w-1/2 py-4 px-4 rounded-xl border" required>
+        {% for hour in hours %}
+          <option value="{{hour.id}}"
+          {% if hour == schedule.hour %}
+            selected
+          {% endif %}>
+            {{hour.hour_list}}
+          </option>
+        {% endfor %}
+      </select><br>
+
+      <label for="name">Name:</label>
+      <input type="text" name="name" class="w-1/2 py-4 px-4 rounded-xl border" value="{{schedule.name}}" required><br>
+
+      <label for="payment_status">Status Pembayaran:</label>
+      <select name="payment_status" class="w-1/2 py-4 px-4 rounded-xl border" required>
+        <option value="lunas" {% if schedule.status == "confirmed" %}selected{% endif %}>
+          Lunas
+        </option>
+        <option value="dp" {% if schedule.status == "pending" %}selected{% endif %}>
+          DP
+        </option>
+        <option value="cancel" {% if schedule.status == "cancelled" %}selected{% endif %}>
+          Cancel
+        </option>
+      </select><br>
+
+      <button type="submit" class="px-3 py-2 bg-blue-500 text-white hover:bg-blue-700 rounded-md">Simpan</button>
+      <a href="{% url 'schedule_list' %}" class="px-3 py-2 mt-2 bg-red-500 text-sm rounded-sm text-white">Back</a>
+    </form>
+  </div>
+</main>
+
+
+{% endblock %}

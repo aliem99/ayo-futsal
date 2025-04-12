@@ -1,0 +1,38 @@
+{% extends 'dashboard_base.html' %}
+
+{% block page_name %}
+  Schedule
+{% endblock %}
+
+{% block dashboard_content %}
+<div class="w-full flex justify-end mb-4">
+  <a href="{% url 'add_schedule' %}" class="px-4 py-2 bg-blue-500 font-semibold text-white rounded-md ">Tambah Jadwal</a>
+</div>
+<table class="w-full table-fixed border border-purple-200">
+  <thead class="bg-purple-100">
+    <tr class="text-center">
+      <th class="p-3 w-[80px]">No</th>
+      <th>Hari/Tanggal</th>
+      <th>Jam</th>
+      <th>Nama Pemesan</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>    
+  </thead>
+  <tbody class="text-center">
+    {% for schedule in schedules %}
+        <tr class="bg-purple-50/30 odd:bg-purple-50">
+          <td class="p-3">{{forloop.counter}}</td>
+          <td>{{schedule.day_date}}</td>
+          <td>{{schedule.hour}}</td>
+          <td>{{schedule.name}}</td>
+          <td>{{schedule.status}}</td>
+          <td>
+            <a href="{% url 'edit_schedule' pk=schedule.pk %}" class="py-1 px-3 bg-yellow-500 text-sm rounded-sm">edit</a>
+            <a href="{% url 'delete_schedule' pk=schedule.pk %}" class="py-1 px-3 bg-red-500 text-sm rounded-sm">delete</a>
+          </td>
+        </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

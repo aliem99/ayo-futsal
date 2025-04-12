@@ -1,0 +1,27 @@
+{% extends 'dashboard_base.html' %}
+
+{% block page_name %}
+  Booking
+{% endblock %}
+
+{% block dashboard_content %}
+  <table class="w-full table-fixed border border-purple-200">
+    <thead class="bg-white text-center">
+      <th class="p-3">Hari</th>
+      <th>Jam</th>
+      <th>Nama Pemesan</th>
+      <th>Status</th>
+    </thead>
+    <tbody class="text-center">
+      {% for booking in bookings %}
+        {% if booking.status == 'confirmed' %}
+          <tr class="bg-purple-50/30 odd:bg-purple-50">
+            <td class="p-3">{{booking.day_date}}</td>
+            <td>{{booking.hour}}</td>
+            <td>{{booking.name}}</td>
+            <td>{{booking.status}}✅</td>
+          </tr>
+        {% endif %}
+      {% endfor %}
+  </table>
+{% endblock %}
